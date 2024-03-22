@@ -1,6 +1,11 @@
 # CasaBolsa
 
-Programa que imprime de manera asimetrica y aproximada los costos de apertura y los costos de cierre 
+Programa que imprime de manera asimetrica y aproximada los costos de apertura y los costos de cierre. 
+
+Respecto al codigo, se usaron listas enlazadas para capturar tanto las fechas de cada dato como los costos mencionados con anterioridad.
+Asimismo, se implemento un tipo-enumeracion que permite guardar el estado de las acciones de manera que esta pueda guardar si las acciones fueron compradas o no.
+
+Con posterioridad se brindaran los headers y las funciones por separado para aquello que necesite utilizarlo con propositos educativos o academicos.
 
 ## Sintaxis
 
@@ -8,7 +13,15 @@ Programa que imprime de manera asimetrica y aproximada los costos de apertura y 
 ./CasaBolsa dir/.../[nombre de archivo .csv]
 ```
 
+## Compilacion
+
+```bash
+$ gcc -g -Wall -o CasaBolsa CasaBolsa.c
+
+```
+
 ## Ejemplo:
+
 ```bash
 $ ./CasaBolsa hist/GOOG_Monthly
 
