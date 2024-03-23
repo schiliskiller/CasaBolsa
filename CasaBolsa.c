@@ -115,6 +115,7 @@ aniadirCostos(Costos *costos, FILE *datos) {
     float f;
 
     ALLOC(nuevoElem);
+    nuevoElem->fech_dato.anio = 0;
 
     // Para fecha y costo de apertura
     fscanf(datos, "%4d%*c%2d%*c%2d%*c%f", &nuevoElem->fech_dato.anio,
