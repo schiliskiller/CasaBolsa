@@ -288,5 +288,5 @@ imprGraf(Matriz graf, float *cost_ordenado) {
 
     printf("\n       . => costo de apertura\n"
            "       , => costo de cierre\n"
-           "       * => costos aproximados\n");
+           "       * => costos en interseccion (aproximadamente)\n");
 }
