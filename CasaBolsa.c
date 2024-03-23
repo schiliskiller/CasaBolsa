@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <stdbool.h>
 #include <string.h>
+#include <math.h>
 
 #define ALLOC(x) if (!((x) = malloc(sizeof(*(x))))) {                   \
                      fprintf(stderr, "ERROR: espacio no disponible\n"); \
@@ -286,8 +287,10 @@ imprGraf(Matriz graf, float *cost_ordenado) {
     for (int i = 0; i < graf.m; i++) {
         if (k >= 0)
             printf("%3.2f ", cost_ordenado[k--]);
-        else
-            printf("       ");
+        else {
+            for (int i = 0; i < log10(max(cost_ordenado, graf.m - 1)) + 4; i++)
+                putchar(' ');
+        }
 
         for(int j = 0; j < graf.n; j++)
             putchar(graf.mat[i][j]);
