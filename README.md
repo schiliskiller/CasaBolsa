@@ -7,6 +7,8 @@ Asimismo, se implemento un tipo-enumeracion que permite guardar el estado de las
 
 Con posterioridad se brindaran los headers y las funciones por separado para aquello que necesite utilizarlo con propositos educativos o academicos.
 
+(este programa se realizo con ayuda de un debugger (gdb) y un depurador de memoria (valgrind))
+
 ## Sintaxis
 
 ```bash

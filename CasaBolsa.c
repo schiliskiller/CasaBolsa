@@ -62,7 +62,7 @@ main(int argc, char const **argv) {
     if (strstr(argv[1], ".csv"))
         arch = (char *) argv[1];
     else {
-        arch = malloc(sizeof(char) * (strlen(argv[1]) + 4));
+        arch = malloc(sizeof(char) * (strlen(argv[1]) + 5));
         strcpy(arch, argv[1]);
         strcat(arch, ".csv");
     }
