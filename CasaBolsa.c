@@ -68,7 +68,7 @@ main(int argc, char const **argv) {
     }
 
     if (!(datos = fopen(arch, "r"))) {
-        fprintf(stderr, "ERROR: archivo no existe o no pudo abrirse\n");
+        fprintf(stderr, "ERROR: archivo no existe o no tiene extension .csv\n");
         exit(1);
     }
 
@@ -241,8 +241,10 @@ dibujarGraf(Matriz *graf, float *apert, float *cierr) {
     for (int k = 1; k < graf->m - 1; k++) {
         for (i = 0; i < graf->m - 1 && arr_orden[k] != cierr[i]; i++)
             ;
-        if (graf->mat[graf->m - (i + 1)][2 * k] == '.')
+        if (graf->mat[graf->m - (i + 1)][2 * k] == '.') {
             graf->mat[graf->m - (i + 1)][2 * k] = '*';
+            continue;
+        }
 
         if (!i)
             i++;
@@ -275,7 +277,7 @@ imprGraf(Matriz graf, float *cost_ordenado) {
 
     for (int i = 0; i < graf.m; i++) {
         if (k >= 0)
-            printf("%.2f ", cost_ordenado[k--]);
+            printf("%3.2f ", cost_ordenado[k--]);
         else
             printf("       ");
 
