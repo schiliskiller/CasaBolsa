@@ -38,7 +38,7 @@ typedef struct {
 } Matriz;
 
 void aniadirCostos(Costos *, FILE *);
-void liberarCostos(Costos *);
+void liberarCostos(struct costos *);
 void saltarLinea(FILE **);
 void pasarCostoArr(Costos *, float *, float *);
 
@@ -80,6 +80,7 @@ main(int argc, char const **argv) {
 
     graficarHistoria(cost);
 
+    liberarCostos(cost.lista);
     if (!strstr(argv[1], ".csv"))
         free(arch);
     
@@ -132,6 +133,13 @@ aniadirCostos(Costos *costos, FILE *datos) {
     nuevoElem->sig = costos->lista;
     costos->lista = nuevoElem;
     costos->cant_datos++;
+}
+
+void
+liberarCostos(struct costos *c) {
+    if (c->sig) liberarCostos(c->sig);
+    free(c);
+
 }
 
 void
