@@ -20,7 +20,7 @@ Con posterioridad se brindaran los headers y las funciones por separado para aqu
 ## Compilacion
 
 ```bash
-$ gcc -g -Wall -o CasaBolsa CasaBolsa.c
+$ gcc -lm -g -Wall -o CasaBolsa CasaBolsa.c
 
 ```
 
