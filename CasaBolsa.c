@@ -13,7 +13,6 @@
                              exit(1);                                           \
                          }
 
-enum {APERT = 1, CIERRE};
 typedef enum {COMPRADO, PENDIENTE} Estado;
 
 struct fecha {
@@ -49,6 +48,7 @@ void imprGraf(Matriz, float *);
 void dibujarGraf(Matriz *, float *, float *);
 
 float max(float *, int n);
+struct costos *ultimoElem(struct costos *);
 
 void initMatriz(Matriz *);
 void liberarMatriz(Matriz m);
@@ -57,10 +57,15 @@ int
 main(int argc, char const **argv) {
     Costos cost = {.lista = NULL, .cant_datos = 0};
     FILE *datos = NULL;
+    char *arch = NULL;
 
-    char *arch = malloc(sizeof(char) * (strlen(argv[1]) + 4));
-    strcpy(arch, argv[1]);
-    strcat(arch, ".csv");
+    if (strstr(argv[1], ".csv"))
+        arch = (char *) argv[1];
+    else {
+        arch = malloc(sizeof(char) * (strlen(argv[1]) + 4));
+        strcpy(arch, argv[1]);
+        strcat(arch, ".csv");
+    }
 
     if (!(datos = fopen(arch, "r"))) {
         fprintf(stderr, "ERROR: archivo no existe o no pudo abrirse\n");
@@ -75,7 +80,8 @@ main(int argc, char const **argv) {
 
     graficarHistoria(cost);
 
-    free(arch);
+    if (!strstr(argv[1], ".csv"))
+        free(arch);
     
     return 0;
 }
@@ -145,15 +151,15 @@ graficarHistoria(Costos costos) {
 
     dibujarGraf(&grafica, apert, cierr);
 
-    struct costos *i = costos.lista;
-    while (i->sig) i = i->sig;
+    struct costos *i = ultimoElem(costos.lista);
     
-    printf("     Del %.2d-%.2d-%.4d hasta %.2d-%.2d-%.4d\n\n", i->fech_dato.dia,
-                                                      i->fech_dato.mes,
-                                                      i->fech_dato.anio,
-                                                      costos.lista->fech_dato.dia,
-                                                      costos.lista->fech_dato.mes,
-                                                      costos.lista->fech_dato.anio);
+    for (int i = 0; i < costos.cant_datos - 8; i++) putchar(' ');
+    printf("Del %.2d-%.2d-%.4d hasta %.2d-%.2d-%.4d\n\n", i->fech_dato.dia,
+                                                          i->fech_dato.mes,
+                                                          i->fech_dato.anio,
+                                                          costos.lista->fech_dato.dia,
+                                                          costos.lista->fech_dato.mes,
+                                                          costos.lista->fech_dato.anio);
     imprGraf(grafica, max(apert, costos.cant_datos) < max(cierr, costos.cant_datos) ? cierr : apert);
     liberarMatriz(grafica);
 }
@@ -166,6 +172,13 @@ max(float *arr, int n) {
         if (max < arr[i]) max = arr[i];
 
     return max;
+}
+
+struct costos
+*ultimoElem(struct costos *c) {
+    if (c->sig) return ultimoElem(c->sig);
+
+    return c;
 }
 
 void
@@ -215,6 +228,10 @@ dibujarGraf(Matriz *graf, float *apert, float *cierr) {
     for (int k = 1; k < graf->m - 1; k++) {
         for (i = 0; i < graf->m - 1 && arr_orden[k] != apert[i]; i++)
             ;
+
+        if (!i)
+            i++;
+
         graf->mat[graf->m - (i + 1)][2 * k] = '.';
     }
 

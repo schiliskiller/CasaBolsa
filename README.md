@@ -11,6 +11,8 @@ Con posterioridad se brindaran los headers y las funciones por separado para aqu
 
 ```bash
 ./CasaBolsa dir/.../[nombre de archivo .csv]
+# o tambien
+./CasaBolsa dir/.../[nombre de archivo].csv
 ```
 
 ## Compilacion
